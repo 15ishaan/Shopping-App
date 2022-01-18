@@ -27,6 +27,8 @@ public class User {
 
     private boolean enabled;
     private String roles;
+    private boolean OFF5;
+    private boolean OFF10;
 
     public int getId() {
         return id;
@@ -90,5 +92,21 @@ public class User {
 
     public void setRoles(String roles) {
         this.roles = roles;
+    }
+
+    public boolean isOFF5() {
+        return OFF5;
+    }
+
+    public void setOFF5(boolean OFF5) {
+        this.OFF5 = OFF5;
+    }
+
+    public boolean isOFF10() {
+        return OFF10;
+    }
+
+    public void setOFF10(boolean OFF10) {
+        this.OFF10 = OFF10;
     }
 }
