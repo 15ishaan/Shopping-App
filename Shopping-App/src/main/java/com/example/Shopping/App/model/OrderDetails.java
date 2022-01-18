@@ -1,12 +1,10 @@
 package com.example.Shopping.App.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
-public class Order {
+public class OrderDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderId;
@@ -15,6 +13,23 @@ public class Order {
     private int quantity;
     private int amount;
     private String coupon;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
+
+
+    public OrderDetails() {
+
+    }
+
+    public OrderDetails(int orderId, int userId, int quantity, int amount, String coupon, Date createdDate) {
+        this.orderId = orderId;
+        this.userId = userId;
+        this.quantity = quantity;
+        this.amount = amount;
+        this.coupon = coupon;
+        this.createdDate = createdDate;
+    }
 
     public int getOrderId() {
         return orderId;
@@ -54,5 +69,13 @@ public class Order {
 
     public void setCoupon(String coupon) {
         this.coupon = coupon;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 }

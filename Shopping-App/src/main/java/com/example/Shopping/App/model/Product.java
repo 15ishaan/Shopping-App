@@ -15,6 +15,16 @@ public class Product {
     private int price;
     private int available;
 
+    public Product() {
+    }
+
+    public Product(int productId, int ordered, int price, int available) {
+        this.productId = productId;
+        this.ordered = ordered;
+        this.price = price;
+        this.available = available;
+    }
+
     public int getProductId() {
         return productId;
     }

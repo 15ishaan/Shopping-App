@@ -14,6 +14,15 @@ public class Coupons {
 
     private String name;
 
+    public Coupons() {
+
+    }
+
+    public Coupons(int couponId, String name) {
+        this.couponId = couponId;
+        this.name = name;
+    }
+
     public int getCouponId() {
         return couponId;
     }

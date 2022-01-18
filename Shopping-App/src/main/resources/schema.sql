@@ -9,9 +9,8 @@ create table USER
     PASSWORD        VARCHAR(128),
     CONFIRMPASSWORD VARCHAR(128),
     ROLES           VARCHAR(128),
-    ENABLED BOOLEAN,
-    OFF5 BOOLEAN,
-    OFF10 BOOLEAN
+    ENABLED BOOLEAN
+
 );
 
 drop table if exists CONFIRMATIONTOKEN;
@@ -39,13 +38,24 @@ create table COUPONS(
      NAME VARCHAR(128)
 );
 
-drop table if exists ORDER;
+drop table if exists ORDERDETAILS;
 
-create table ORDER (
+create table ORDERDETAILS (
      ORDERID INTEGER AUTO_INCREMENT,
      USERID INTEGER,
      QUANTITY INTEGER,
      AMOUNT INTEGER,
+     CREATEDDATE DATE NOT NULL,
      COUPON VARCHAR(128)
 );
+
+drop table if exists USERCOUPONS;
+
+create table USERCOUPONS(
+    USERCOUPONSID INTEGER AUTO_INCREMENT,
+    USERID INTEGER,
+    COUPON VARCHAR(128),
+    VALIDITY BOOLEAN
+);
+
 

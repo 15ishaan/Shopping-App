@@ -15,4 +15,8 @@ public class ProductServiceImplem implements  ProductService{
     public Iterable<Product> fetchAll(){
         return repo.findAllByOrderByProductId();
     }
+
+    public Product findById(int id) {
+        return repo.findById(id);
+    }
 }

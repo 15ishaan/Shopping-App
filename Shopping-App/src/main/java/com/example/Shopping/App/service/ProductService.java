@@ -6,4 +6,5 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public interface ProductService {
     Iterable<Product> fetchAll();
+    Product findById(int id);
 }

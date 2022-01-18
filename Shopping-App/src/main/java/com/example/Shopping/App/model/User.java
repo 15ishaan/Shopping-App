@@ -27,8 +27,21 @@ public class User {
 
     private boolean enabled;
     private String roles;
-    private boolean OFF5;
-    private boolean OFF10;
+
+    public User() {
+
+    }
+
+    public User(int id, @NotNull(message = "Enter your first name") String firstName, @NotNull(message = "Enter your last name") @Size(min = 3, max = 30) String lastName, @NotNull(message = "Enter your email") String username, @Size(min = 6, max = 30) String password, String confirmPassword, boolean enabled, String roles) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.confirmPassword = confirmPassword;
+        this.enabled = enabled;
+        this.roles = roles;
+    }
 
     public int getId() {
         return id;
@@ -94,19 +107,4 @@ public class User {
         this.roles = roles;
     }
 
-    public boolean isOFF5() {
-        return OFF5;
-    }
-
-    public void setOFF5(boolean OFF5) {
-        this.OFF5 = OFF5;
-    }
-
-    public boolean isOFF10() {
-        return OFF10;
-    }
-
-    public void setOFF10(boolean OFF10) {
-        this.OFF10 = OFF10;
-    }
 }
