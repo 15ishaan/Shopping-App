@@ -19,4 +19,9 @@ public class OrderDetailsServiceImplem implements OrderDetailsService{
     public OrderDetails findByUserIdAndOrderId(int uId, int oId) {
         return repo.findByUserIdAndOrderId(uId, oId);
     }
+
+    @Override
+    public Iterable<OrderDetails> findByUserId(int id) {
+        return repo.findByUserId(id);
+    }
 }

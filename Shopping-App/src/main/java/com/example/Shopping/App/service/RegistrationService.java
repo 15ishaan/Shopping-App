@@ -30,6 +30,9 @@ public class RegistrationService implements UserDetailsService {
         return repo.save(user);   // saving user
     }
 
+    public int StringToInt(String Sid) {
+        return Integer.valueOf(Sid);
+    }
 
     public User fetchUserById(int id){ return  repo.findById(id); }
 

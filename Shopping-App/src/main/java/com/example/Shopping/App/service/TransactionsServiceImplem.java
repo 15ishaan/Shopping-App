@@ -19,4 +19,9 @@ public class TransactionsServiceImplem implements TransactionsService{
     public Transactions findByUserIdAndOrderIdAndStatus(int uId, int oId, String status) {
         return repo.findByUserIdAndOrderIdAndAndStatus(uId, oId, status);
     }
+
+    @Override
+    public Iterable<Transactions> findByUserIdAndOrderId(int uId, int oId) {
+        return repo.findByUserIdAndOrderId(uId, oId);
+    }
 }

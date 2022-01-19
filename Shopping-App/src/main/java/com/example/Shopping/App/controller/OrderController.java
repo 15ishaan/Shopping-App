@@ -4,10 +4,7 @@ import com.example.Shopping.App.model.*;
 import com.example.Shopping.App.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 
@@ -34,7 +31,7 @@ public class OrderController {
     @PostMapping("/{userId}/order")
     public OrderDetails placeOrder(@PathVariable("userId") String userId, @RequestParam("qty") int qty, @RequestParam("coupon") String coupon) {
         OrderDetails obj = new OrderDetails();
-        int id = Integer.valueOf(userId);
+        int id = registrationService.StringToInt(userId);
         UserCoupons userCoupons = userCouponsService.findByUserIdAndCoupon(id, coupon);
         Product prod = prodService.findById(1);
 
@@ -46,7 +43,7 @@ public class OrderController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid Coupon");
         }
         //finding Discount from coupon
-        int discount = Integer.valueOf(coupon.substring(3));
+        int discount = registrationService.StringToInt(coupon.substring(3));
         int amount = (prod.getPrice()*qty*(100-discount))/100;   // Calculating Amount to be Paid
 
         Date date = new Date();
@@ -62,8 +59,8 @@ public class OrderController {
 
     @PostMapping("/{userId}/{orderId}/pay")
     public Transactions checkout(@PathVariable("userId") String userId, @PathVariable("orderId") String orderId, @RequestParam("amount") int amount) {
-        int uId = Integer.valueOf(userId);
-        int oId = Integer.valueOf(orderId);
+        int uId = registrationService.StringToInt(userId);
+        int oId = registrationService.StringToInt(orderId);
         User user = registrationService.fetchUserById(uId);
         OrderDetails orderDetails = orderDetailsService.findByUserIdAndOrderId(uId, oId);
         Transactions transaction = transactionsService.findByUserIdAndOrderIdAndStatus(uId, oId, "successful");
@@ -78,6 +75,14 @@ public class OrderController {
             obj.setStatus("failed");
             transactionsService.saveTransaction(obj);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Payment Failed due to invalid order id");
+        }
+
+        UserCoupons userCoupons = userCouponsService.findByUserIdAndCoupon(uId, orderDetails.getCoupon());
+        if(!userCoupons.isValidity()) {
+            obj.setStatus("failed");
+            obj.setCoupon(orderDetails.getCoupon());
+            transactionsService.saveTransaction(obj);
+            throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED, "Invalid Coupon");
         }
         else if(transaction != null) {
             obj.setStatus("failed");
@@ -111,7 +116,6 @@ public class OrderController {
             prodService.saveProduct(prod);
 
             //updating UserCoupon Table
-            UserCoupons userCoupons = userCouponsService.findByUserIdAndCoupon(uId, orderDetails.getCoupon());
             userCoupons.setValidity(false);
             userCouponsService.saveUserCoupons(userCoupons);
 
@@ -123,4 +127,22 @@ public class OrderController {
             return obj;
         }
     }
+
+    @GetMapping("/{userId}/orders")
+    public Iterable<OrderDetails> getOrderDetails(@PathVariable("userId") String userId) {
+        int id = registrationService.StringToInt(userId);
+        return orderDetailsService.findByUserId(id);
+    }
+
+    @GetMapping("/{userId}/orders/{orderId}")
+    public Iterable<Transactions> getTransactionDetails(@PathVariable("userId") String userId, @PathVariable("orderId") String orderId) {
+        int uId = registrationService.StringToInt(userId);
+        int oId = registrationService.StringToInt(orderId);
+        OrderDetails orderDetails = orderDetailsService.findByUserIdAndOrderId(uId, oId);
+        if(orderDetails == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order Not Found");
+        }
+        return transactionsService.findByUserIdAndOrderId(uId, oId);
+    }
+
 }
