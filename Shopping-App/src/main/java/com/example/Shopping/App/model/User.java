@@ -15,24 +15,26 @@ public class User {
     private String firstName;
 
     @NotNull(message = "Enter your last name")
-    @Size(min = 3, max = 30)
+//    @Size(min = 3, max = 30)
     private String lastName;
 
     @NotNull(message = "Enter your email")
     private String username;
 
-    @Size(min = 6, max = 30)
+//    @Size(min = 6, max = 30)
     private String password;
     private String confirmPassword;
 
     private boolean enabled;
     private String roles;
 
+    private int balance;
+
     public User() {
 
     }
 
-    public User(int id, @NotNull(message = "Enter your first name") String firstName, @NotNull(message = "Enter your last name") @Size(min = 3, max = 30) String lastName, @NotNull(message = "Enter your email") String username, @Size(min = 6, max = 30) String password, String confirmPassword, boolean enabled, String roles) {
+    public User(int id, @NotNull(message = "Enter your first name") String firstName, @NotNull(message = "Enter your last name") /*@Size(min = 3, max = 30)*/ String lastName, @NotNull(message = "Enter your email") String username, /*@Size(min = 6, max = 30)*/ String password, String confirmPassword, boolean enabled, String roles, int balance) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -41,6 +43,7 @@ public class User {
         this.confirmPassword = confirmPassword;
         this.enabled = enabled;
         this.roles = roles;
+        this.balance = balance;
     }
 
     public int getId() {
@@ -107,4 +110,11 @@ public class User {
         this.roles = roles;
     }
 
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
 }

@@ -24,9 +24,9 @@ public class RegistrationService implements UserDetailsService {
     private JwtUtil jwtTokenUtil;
 
     public User saveUser(User user){
-        user.setPassword(getEncodedString(user.getPassword()));   //encoding password
-        user.setConfirmPassword(getEncodedString(user.getConfirmPassword()));   //encoding confirm_Password
-        user.setEnabled(false);
+//        user.setPassword(getEncodedString(user.getPassword()));   //encoding password
+//        user.setConfirmPassword(getEncodedString(user.getConfirmPassword()));   //encoding confirm_Password
+//        user.setEnabled(false);
         return repo.save(user);   // saving user
     }
 

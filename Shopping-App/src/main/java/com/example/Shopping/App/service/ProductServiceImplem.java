@@ -19,4 +19,9 @@ public class ProductServiceImplem implements  ProductService{
     public Product findById(int id) {
         return repo.findById(id);
     }
+
+    @Override
+    public Product saveProduct(Product product) {
+        return repo.save(product);
+    }
 }

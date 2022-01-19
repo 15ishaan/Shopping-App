@@ -7,4 +7,5 @@ import org.springframework.validation.annotation.Validated;
 public interface ProductService {
     Iterable<Product> fetchAll();
     Product findById(int id);
+    Product saveProduct(Product product);
 }

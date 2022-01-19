@@ -6,4 +6,5 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public interface UserCouponsService {
     UserCoupons findByUserIdAndCoupon(int id, String coupon);
+    UserCoupons saveUserCoupons(UserCoupons userCoupons);
 }

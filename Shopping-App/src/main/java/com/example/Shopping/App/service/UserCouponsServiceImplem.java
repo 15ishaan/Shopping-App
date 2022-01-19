@@ -15,4 +15,9 @@ public class UserCouponsServiceImplem implements UserCouponsService{
     public UserCoupons findByUserIdAndCoupon(int id, String coupon) {
         return repo.findByUserIdAndCoupon(id, coupon);
     }
+
+    @Override
+    public UserCoupons saveUserCoupons(UserCoupons userCoupons) {
+        return repo.save(userCoupons);
+    }
 }

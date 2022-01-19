@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
+//For User Authentication
 @Entity
 public class ConfirmationToken {
 
